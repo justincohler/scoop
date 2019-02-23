@@ -2,9 +2,13 @@
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 
+const session = require('express-session');
+
 // Load environment variables from .env
 const dotenv = require('dotenv');
 dotenv.config();
+
+const {Company} = require('../models/company');
 
 module.exports = (app) => {
     
@@ -45,11 +49,20 @@ module.exports = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    passport.serializeUser(function (user, done) {
+    passport.serializeUser(async function (user, done) {
         done(null, user);
     });
 
-    passport.deserializeUser(function (user, done) {
-        done(null, user);
+    passport.deserializeUser(async function (user, done) {
+        try {
+            let company = await Company.findByAuthID(user.user_id);
+            if (!company)
+            {
+                company = await Company.create({authID: user.user_id});
+            }
+            done(null, {auth_user: user, company});
+        } catch (e) {
+            done(e);
+        }
     });
 }

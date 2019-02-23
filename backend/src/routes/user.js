@@ -5,10 +5,21 @@ const router = express.Router();
 /* GET user profile. */
 router.get('/user', secured(), function (req, res, next) {
   const { _raw, _json, ...userProfile } = req.user;
-  res.render('user', {
-    userProfile: JSON.stringify(userProfile, null, 2),
-    title: 'Profile page'
-  });
+  res.json(userProfile);
 });
+
+router.post('/update', secured(), async function (req, res, next) {
+    let {company} = req.user;
+    let {description, companyName} = req.body;
+    company.description = description;
+    company.companyName = companyName;
+    try {
+        await company.save(); 
+        res.sendStatus(200);
+    } 
+    catch (e) {
+        res.sendStatus(400);
+    }
+})
 
 module.exports = router;
