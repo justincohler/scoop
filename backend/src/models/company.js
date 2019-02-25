@@ -15,6 +15,12 @@ var CompanySchema = new mongoose.Schema( {
         type: String, 
         trim: true
     },
+    uploaded_ads : [{
+        location: {
+            type: String,
+            required: true
+        }
+    }]
 },
 { usePushEach: true }
 );
