@@ -17,17 +17,21 @@ let upload = multer({
       cb(null, {fieldName: `${req.user.auth_user.user_id}_${file.originalname}`});
     },
     key: function (req, file, cb) {
-      cb(null, `${req.user.auth_user.user_id}_${file.originalname}`);
+      cb(null, `${req.user.auth_user.user_id}/${file.originalname}`);
     }
   })
 });
  
 router.post('/upload', secured(), upload.single('ad'), async function(req, res, next) {
-    console.log("UPLOADED!");
     req.user.company.uploaded_ads.push({location : req.file.location});
     req.user.company.markModified('uploaded_ads');
-    await req.user.company.save();
-    res.send(`Successfully uploaded file at ${req.file.location}!`)
+    try {
+        await req.user.company.save();
+        // res.send(`Successfully uploaded file at ${req.file.location}!`);
+    }catch (e)
+    {
+        res.sendStatus(400);
+    }
 });
 
 module.exports = router;

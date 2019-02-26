@@ -14,7 +14,7 @@ require('./auth/setup_auth')(app);
 
 const PORT = process.env.PORT || 3000;
 
-app.use('/', authRouter);
+app.use('/auth', authRouter);
 app.use('/', usersRouter);
 app.use('/', uploadRouter);
 
