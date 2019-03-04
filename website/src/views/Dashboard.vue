@@ -10,14 +10,49 @@
         <b-row align-h="center">
             <b-col cols="12" style="background: white; min-height:650px">
                 <ul class="list-unstyled m-4">
-                    <b-media tag="li">
-                        <b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
+                    <b-media v-for="ad in ads" tag="li" class="mb-5 border-bottom">
+                        <b-img rounded slot="aside" :src="ad.image" width="64" height="64" alt="placeholder" />
 
-                        <h5 class="mt-0 mb-1 text-left">List-based media object</h5>
+                        <h5 class="mt-0 mb-1 text-left"> {{ ad.name }}</h5>
                         <p class="mb-0 text-left">
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
-                            ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            {{ ad.description }}
+
+                        <b-container fluid class="my-4">
+                            <b-row>
+                                <b-col cols="6">
+                                <div class="ml-4 text-left">
+                                    Traffic generated: {{ ad.metrics.genTraffic }} views + clicks
+                                    <div class="ml-2">
+                                        Facebook: {{ ad.metrics.fbTrafficViews }} views + {{ ad.metrics.fbTrafficClicks }} clicks
+                                    </div>
+                                    <div class="ml-2">
+                                        Instagram: {{ ad.metrics.igTrafficViews }} views + {{ ad.metrics.igTrafficClicks }} clicks
+                                    </div>
+
+                                </div>
+                                </b-col>
+
+                                <b-col cols="6">
+                                <div class="ml-4 text-left">
+                                    Traffic generated: {{ ad.metrics.genTraffic }} views
+                                    <div class="ml-2">
+                                        Facebook: {{ ad.metrics.fbTraffic }} views
+                                    </div>
+                                    <div class="ml-2">
+                                        Instagram: {{ ad.metrics.igTraffic }} views
+                                    </div>
+
+                                </div>
+                                </b-col>
+                            </b-row>
+                            <b-row align-h="center" class="mt-4">
+                                <b-col cols="6" class="text-center">
+                                    Budget: $50 out of $200 used (14 days left)
+                                </b-col>
+                            </b-row>
+
+                        </b-container>
+
                         </p>
                     </b-media>
 
@@ -40,9 +75,41 @@
 <script>
 // @ is an alias to /src
 //import HelloWorld from "@/components/HelloWorld.vue";
-
+import axios from 'axios'
 export default {
 	name: "home",
+    data() {
+        return {
+            ads: [
+            {
+                name: "Fresh Parfait",
+                image: "http://www.californiastrawberries.com/wp-content/uploads/2017/05/Strawberry-Breakfast-Parfait-1.jpg",
+                description: `We found this ad to be very helpful with generating traffic on Facebook. Specifically, it appealed 
+                              to middle-aged mothers with an interest in organic food.`,
+                metrics: {
+                    genTraffic: 500,
+                    igTrafficViews: 200,
+                    igTrafficClicks: 50,
+                    fbTrafficViews: 225,
+                    fbTrafficViews: 25
+                }
+            },
+            {
+                name: "Crepe",
+                image: "https://www.handletheheat.com/wp-content/uploads/2014/02/Homemade-Crepes-01-Square-550x550.jpg",
+                description: `We found this ad to be very helpful with generating traffic on Instagram. Specifically it appealed
+                              to college-aged students between the hours of 8PM and midnight.`,
+                metrics: {
+                    genTraffic: 500,
+                    igTrafficViews: 200,
+                    igTrafficClicks: 50,
+                    fbTrafficViews: 225,
+                    fbTrafficViews: 25
+                }
+            }
+        ]
+        }
+    },
     computed: {
 	  	username: {
 			get: function() {
@@ -62,16 +129,20 @@ export default {
 		}
     },
 	async mounted() {
+        /*
+        let res = undefined
         try {
-                let res = await axios({
+                res = await axios({
                     method: "post",
                     url: "http://localhost:3000/login_user",
                     data: { "username": this.username, "password": this.password},
                     config: { headers: { "Content-Type": "application/json" } }
                 });
+                this.ads = res.data.ads
             } catch (e) {
                 console.log(e)
         }
+        */
     },
 }
 </script>

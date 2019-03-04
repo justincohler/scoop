@@ -15,6 +15,7 @@
             :value="ad1"
             required
             ref="ad1Ref"
+            accept="image/*"
             class="mb-4 support_text input_field"
             />
 
@@ -24,6 +25,7 @@
             drop-placeholder="Drop file here..."
             v-model="ad2"
             :value="ad2"
+            accept="image/*"
             class="mb-4 support_text input_field"
             />
 
@@ -33,6 +35,7 @@
             drop-placeholder="Drop file here..."
             v-model="ad3"
             :value="ad3"
+            accept="image/*"
             class="mb-4 support_text input_field"
             />
 
