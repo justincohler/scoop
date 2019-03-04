@@ -14,8 +14,8 @@ router.get('/user', secured(), function (req, res, next) {
 
 router.post('/submit_user', upload.array('ads'), async function (req, res, next) {
     try {
-        let {username, password} = req.body; 
-       req.files.forEach((file) => {
+        let { username, password } = req.body;
+        req.files.forEach((file) => {
             company.ads.push({ location: file.location });
         });
 
@@ -27,6 +27,20 @@ router.post('/submit_user', upload.array('ads'), async function (req, res, next)
         console.log(e);
         res.sendStatus(400);
     }
-})
+});
+
+router.post('/login_user', function (req, res, next) {
+    try {
+        company = Company.findOne({ username: req.body.username });
+        if (company.password != req.body.password) {
+            res.sendStatus(404);
+        } else {
+            res.sendStatus(200);
+        }
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(400);
+    }
+});
 
 module.exports = router;
