@@ -43,7 +43,7 @@
       />
     </div>
 
-    <!-- <div ref="card" class="my-4" @change="stripeErrorCheck($event)"/> -->
+    <div ref="card" class="my-4" @change="stripeErrorCheck($event)"/>
     <b-button id="get_started" class="support_text mr-3" @click="prevStep" v-ripple>Back</b-button>
     <b-button id="get_started" class="support_text" @click="submit" v-ripple>Complete</b-button>
   </div>
@@ -56,7 +56,6 @@ var card = undefined;
 export default {
   name: "General Information",
   mounted: function() {
-    /*
     if (window.Stripe === undefined) {
       alert("Stripe V3 library is not loaded!");
     } else {
@@ -68,17 +67,15 @@ export default {
     card = elements.create("card");
 
     card.mount(this.$refs.card);
-    */
   },
   methods: {
     submit: async function(evt) {
-      /*
       const { token, error } = await this.stripe.createToken(card);
       if (error) {
         const errorElement = document.getElementById("card-errors");
         errorElement.textContent = error.message;
       }
-      */
+
       let form = this.$store.state.form;
       let formData = new FormData();
       for (let key in form) {
@@ -86,9 +83,6 @@ export default {
           formData.set(key, form[key]);
         }
       }
-
-      formData.set("username", "daniel");
-      formData.set("password", "daniel");
       try {
         formData.append("ads[]", form.ads[1], form.ads[1].name);
       } catch (e) {}
@@ -101,16 +95,16 @@ export default {
 
       try {
         let res = await axios({
-            method: "post",
-            url: "http://localhost:3000/submit_user",
-            data: formData,
-            config: { headers: { "Content-Type": "multipart/form-data" } }
+          method: "post",
+          url: "http://localhost:3000/submit_user",
+          data: formData,
+          config: { headers: { "Content-Type": "multipart/form-data" } }
         });
       } catch (e) {
-          console.log(e)
+        console.log(e);
       }
 
-      this.$emit('nextStep', 3)
+      this.$emit("nextStep", 3);
       this.$router.push({ path: "/signup/complete" });
     },
     prevStep: function(evt) {
