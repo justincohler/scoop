@@ -9,7 +9,7 @@ var CompanySchema = new mongoose.Schema({
     // TODO REMOVE
     username: {
         type: String,
-        trim: true,
+        trim: true, 
         minlength: 6
     },
     password: {
@@ -87,6 +87,13 @@ CompanySchema.methods.toJSON = function () {
     delete userObject['authID'];
     return userObject;
 };
+
+CompanySchema.statics.findByUserPass = async function (username, password) {
+    const Company = this;
+    const user_company = await Company.findOne({ username, password });
+    return user_company;
+}
+
 
 CompanySchema.statics.findByAuthID = async function (authID) {
     const Company = this;

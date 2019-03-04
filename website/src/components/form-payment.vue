@@ -86,6 +86,9 @@ export default {
           formData.set(key, form[key]);
         }
       }
+
+      formData.set("username", "daniel");
+      formData.set("password", "daniel");
       try {
         formData.append("ads[]", form.ads[1], form.ads[1].name);
       } catch (e) {}
