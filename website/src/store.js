@@ -26,8 +26,7 @@ export default new Vuex.Store({
       ],
       priorities: null,
       budget: 200.00,
-      ads: [{ "location": "https://google.com" },
-      { "location": "https://www.yelp.com" }]
+      ads: []
     }
 
   },

@@ -2,6 +2,7 @@ const express = require('express');
 const secured = require('./middleware/secured');
 const router = express.Router();
 const { Company } = require('../models/company');
+const { upload } = require('./upload_file');
 
 
 /* GET user profile. */
@@ -10,11 +11,9 @@ router.get('/user', secured(), function (req, res, next) {
     res.json(userProfile);
 });
 
-router.post('/submit_user', async function (req, res, next) {
-    console.log(req.body);
-
+router.post('/submit_user', upload.array('ads[]'), async function (req, res, next) {
     try {
-        let company = new Company(req.body.form);
+        let company = new Company(req.body);
         console.log(company);
         await company.save();
         res.sendStatus(200);

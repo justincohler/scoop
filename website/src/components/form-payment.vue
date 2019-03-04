@@ -80,10 +80,27 @@ export default {
       }
       */
       let form = this.$store.state.form;
+      let formData = new FormData();
+      for (let key in form) {
+        if (key != "ads") {
+          formData.set(key, form[key]);
+        }
+      }
+      try {
+        formData.append("ads[]", form.ads[1], form.ads[1].name);
+      } catch (e) {}
+      try {
+        formData.append("ads[]", form.ads[2], form.ads[2].name);
+      } catch (e) {}
+      try {
+        formData.append("ads[]", form.ads[3], form.ads[3].name);
+      } catch (e) {}
 
-      let res = await axios.post("http://localhost:3000/submit_user", {
-        form
-        // token
+      let res = await axios({
+        method: "post",
+        url: "http://localhost:3000/submit_user",
+        data: formData,
+        config: { headers: { "Content-Type": "multipart/form-data" } }
       });
 
       this.$router.push({ path: "/signup/payment" });
