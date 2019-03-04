@@ -47,7 +47,7 @@
                             </b-row>
                             <b-row align-h="center" class="mt-4">
                                 <b-col cols="6" class="text-center">
-                                    Budget: $50 out of $200 used (14 days left)
+                                    Budget: ${{ad.metrics.budget1}} out of ${{ad.metrics.budgetTotal}} used
                                 </b-col>
                             </b-row>
 
@@ -91,7 +91,9 @@ export default {
                     igTrafficViews: 200,
                     igTrafficClicks: 50,
                     fbTrafficViews: 225,
-                    fbTrafficViews: 25
+                    fbTrafficViews: 25,
+                    budget1: 50,
+                    budgetTotal: 200,
                 }
             },
             {
@@ -104,7 +106,9 @@ export default {
                     igTrafficViews: 200,
                     igTrafficClicks: 50,
                     fbTrafficViews: 225,
-                    fbTrafficViews: 25
+                    fbTrafficViews: 25,
+                    budget1: 75,
+                    budgetTotal: 200,
                 }
             }
         ]
