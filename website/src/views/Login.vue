@@ -108,7 +108,7 @@ export default {
         return this.$store.state.form.username;
       },
       set: function(input) {
-        this.$store.commit("updateForm", "username", input);
+        this.$store.commit("updateForm", { field: "username", input });
       }
     },
     password: {
@@ -116,7 +116,7 @@ export default {
         return this.$store.state.form.password;
       },
       set: function(input) {
-        this.$store.commit("updateForm", "password", input);
+        this.$store.commit("updateForm", {field: "password", input});
       }
     }
   }
