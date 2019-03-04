@@ -15,15 +15,8 @@ export default new Vuex.Store({
       industry: null,
       businessDescription: null,
       customerDescription: null,
-      links: [{
-        "title": "Yelp",
-        "url": "https://www.yelp.com"
-      },
-      {
-        "title": "Homepage",
-        "url": "https://google.com"
-      }
-      ],
+      link1: null,
+      link2: null,
       priorities: null,
       budget: 200.00,
       ads: []
