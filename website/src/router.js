@@ -34,6 +34,10 @@ export default new Router({
             {
               path: "payment",
               component: () => import("./components/form-payment.vue")
+            },
+            {
+              path: "complete",
+              component: () => import("./components/form-complete.vue")
             }
           ]
         }

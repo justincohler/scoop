@@ -99,14 +99,19 @@ export default {
         formData.append("ads[]", form.ads[3], form.ads[3].name);
       } catch (e) {}
 
-      let res = await axios({
-        method: "post",
-        url: "http://localhost:3000/submit_user",
-        data: formData,
-        config: { headers: { "Content-Type": "multipart/form-data" } }
-      });
+      try {
+        let res = await axios({
+            method: "post",
+            url: "http://localhost:3000/submit_user",
+            data: formData,
+            config: { headers: { "Content-Type": "multipart/form-data" } }
+        });
+      } catch (e) {
+          console.log(e)
+      }
 
-      this.$router.push({ path: "/signup/payment" });
+      this.$emit('nextStep', 3)
+      this.$router.push({ path: "/signup/complete" });
     },
     prevStep: function(evt) {
       this.$emit("nextStep", 1);

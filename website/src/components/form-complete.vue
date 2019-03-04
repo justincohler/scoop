@@ -1,8 +1,9 @@
 <template>
     <div>
-        <div class="border-bottom pb-4 mb-4 text-center lead_text">
-            You're done!
-	    </div>  
+        <div
+          class="my-4 lead_text text-center"
+          id="lead"
+        >You're done!</div>
 
         <div class="border-bottom pb-4 mb-4 text-center support_text">
             A Scoop consultant will reach out to you once we have set up your complete online marketing campaign. In the meantime,
