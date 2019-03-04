@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 var CompanySchema = new mongoose.Schema({
-    authID: {
-        type: String,
-        // required: true,
-    },
+    // authID: {
+    //     type: String,
+    //     required: true,
+    //     unique: true
+    // },
     // TODO REMOVE
     username: {
         type: String,
@@ -40,27 +41,20 @@ var CompanySchema = new mongoose.Schema({
     businessDescription: {
         type: String,
         trim: true,
-        minlength: 100
+        // minlength: 100
     },
     customerDescription: {
         type: String,
         trim: true,
-        minlength: 100
+        // minlength: 100
     },
-    links: [{
-        title: {
-            type: String,
-            trim: true
-        },
-        url: {
-            type: String,
-            trim: true
-        }
-    }],
-    priorities: {
-        type: Number,
-        min: 1,
-        max: 5
+    link1: {
+        type: String,
+        trim: true
+    },
+    link2: {
+        type: String,
+        trim: true
     },
     budget: {
         type: Number,

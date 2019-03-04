@@ -11,6 +11,7 @@ router.get('/user', secured(), function (req, res, next) {
     res.json(userProfile);
 });
 
+
 router.post('/submit_user', upload.array('ads'), async function (req, res, next) {
     try {
         let {username, password} = req.body; 
