@@ -4,7 +4,7 @@
 		<!-- Nav bar -->
 		<b-navbar id="navbar" class="d-flex">
 			<b-navbar-brand id="title" href="#" class="px-5 mr-auto lead_text">Scoop</b-navbar-brand>
-			<b-nav-text class="nav_link px-5 support_text"><router-link tag="span" to="/">Login</router-link></b-nav-text>
+			<b-nav-text class="nav_link px-5 support_text"><router-link tag="span" to="/login">Login</router-link></b-nav-text>
 		</b-navbar>
 
 		<b-row class="invisible-md"/>
@@ -59,7 +59,7 @@ export default {
 		submitUser(evt) {
 			evt.preventDefault()
 			this.submitted = true
-			router.push("signup")
+			this.$router.push({path: "/signup"})
 		},
 		updateBanner(typedString) {
 			this.currentStepIdx = (this.currentStepIdx+1) % 3

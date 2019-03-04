@@ -1,8 +1,10 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Signup from "./views/Home.vue";
+import Vue from "vue"
+import Router from "vue-router"
+import signupView from "./views/Home.vue"
+import loginView from "./views/Login.vue"
+import dashboardView from "./views/Dashboard.vue"
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: "history",
@@ -11,7 +13,7 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Signup,
+      component: signupView,
       children: [
         {
           path: "",
@@ -37,5 +39,15 @@ export default new Router({
         }
       ]
     },
+    {
+      path: "/login",
+      name: "login",
+      component: loginView
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: dashboardView
+    }
   ]
-});
+})
