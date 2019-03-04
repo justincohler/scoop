@@ -3,8 +3,19 @@ const mongoose = require('mongoose');
 var CompanySchema = new mongoose.Schema({
     authID: {
         type: String,
-        required: true,
+        // required: true,
         unique: true
+    },
+    // TODO REMOVE
+    username: {
+        type: String,
+        trim: true,
+        minlength: 6
+    },
+    password: {
+        type: String,
+        trim: true,
+        minlength: 6
     },
     companyName: {
         type: String,
@@ -12,6 +23,10 @@ var CompanySchema = new mongoose.Schema({
         minlength: 1
     },
     address: {
+        type: String,
+        trim: true
+    },
+    city: {
         type: String,
         trim: true
     },
@@ -23,14 +38,26 @@ var CompanySchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    companyDescription: {
+    businessDescription: {
         type: String,
-        trim: true
+        trim: true,
+        minlength: 100
     },
-    website: {
+    customerDescription: {
         type: String,
-        trim: true
+        trim: true,
+        minlength: 100
     },
+    links: [{
+        title: {
+            type: String,
+            trim: true
+        },
+        url: {
+            type: String,
+            trim: true
+        }
+    }],
     priorities: {
         type: Number,
         min: 1,
@@ -39,8 +66,8 @@ var CompanySchema = new mongoose.Schema({
     budget: {
         type: Number,
         min: 0
-    }
-    uploaded_ads: [{
+    },
+    ads: [{
         location: {
             type: String,
             required: true

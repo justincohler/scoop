@@ -15,18 +15,28 @@ export default new Vuex.Store({
       industry: null,
       businessDescription: null,
       customerDescription: null,
-      link1: null,
-      link2: null,
-      ads: {"1": null, "2": null, "3": null}
+      links: [{
+        "title": "Yelp",
+        "url": "https://www.yelp.com"
+      },
+      {
+        "title": "Homepage",
+        "url": "https://google.com"
+      }
+      ],
+      priorities: null,
+      budget: 200.00,
+      ads: [{ "location": "https://google.com" },
+      { "location": "https://www.yelp.com" }]
     }
 
   },
   mutations: {
     updateForm(state, payload) {
-        state.form[payload.field] = payload.input
+      state.form[payload.field] = payload.input
     },
     updateAds(state, payload) {
-        state.form.ads[payload.adNum] = payload.file
+      state.form.ads[payload.adNum] = payload.file
     }
   },
   actions: {}
