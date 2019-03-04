@@ -11,10 +11,14 @@ router.get('/user', secured(), function (req, res, next) {
     res.json(userProfile);
 });
 
-router.post('/submit_user', upload.array('ads[]'), async function (req, res, next) {
+router.post('/submit_user', upload.array('ads'), async function (req, res, next) {
     try {
-        let company = new Company(req.body);
-        console.log(company);
+        let {username, password} = req.body; 
+       req.files.forEach((file) => {
+            company.ads.push({ location: file.location });
+        });
+
+        company.markModified('ads');
         await company.save();
         res.sendStatus(200);
     }
