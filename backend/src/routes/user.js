@@ -51,7 +51,7 @@ router.post('/login_user', async function (req, res, next) {
         company = await Company.findOne({ username: req.body.username });
         if (company == null)
             return res.sendStatus(404);
-        if (company.password != req.body.password) {
+        else if (company.password != req.body.password) {
             res.sendStatus(404);
         } else {
             res.sendStatus(200);
