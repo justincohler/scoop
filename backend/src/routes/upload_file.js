@@ -3,19 +3,18 @@ const express = require('express');
 const aws = require('aws-sdk');
 const multer = require('multer')
 const multerS3 = require('multer-s3')
-const {Company} = require('../models/company');
+const { Company } = require('../models/company');
 const secured = require('./middleware/secured');
 
 const router = express.Router();
 const s3 = new aws.S3();
 
-let put_user = async (req) => 
-{
-  let {username, password} = req.body; 
+let put_user = async (req) => {
+  let { username, password } = req.body;
   let company = await Company.findByUserPass(username, password);
-  if (!company)
-  {
-    company = await Company.create(req.body);
+  if (company == null) {
+    company = new Company(req.body);
+    await company.save();
   }
   req.user = company;
 }
@@ -25,15 +24,15 @@ let upload = multer({
     s3: s3,
     bucket: 'uchicagoscoop2',
     metadata: async function (req, file, cb) {
-     if (!req.user)
-      await put_user(req);
-     cb(null, { fieldName: `${req.user.username}_${file.originalname}` });
+      if (!req.user)
+        await put_user(req);
+      cb(null, { fieldName: `${req.user.username}_${file.originalname}` });
     },
     key: async function (req, file, cb) {
-    if (!req.user)
-      await put_user(req);
+      if (!req.user)
+        await put_user(req);
 
-    cb(null, `${req.user.username}_${file.originalname}`);
+      cb(null, `${req.user.username}_${file.originalname}`);
     }
   })
 });
