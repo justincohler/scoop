@@ -12,15 +12,32 @@ router.get('/user', secured(), function (req, res, next) {
 });
 
 
-router.post('/submit_user', upload.array('ads'), async function (req, res, next) {
+router.post('/files', async function (req, res, next) {
+    const {username, password} = req.body;
+    try 
+    {
+        let user = await Company.findByUserPass(username, password);
+        if (!user)
+        {
+            res.sendStatus(404);
+        } else 
+            res.json(user.ads);
+    }catch (e)
+    {
+        res.sendStatus(400);
+    }
+})
+
+router.post('/submit_user', upload.array('ads[]'), async function (req, res, next) {
+    console.log("GOT HERE!")
     try {
         let { username, password } = req.body;
         req.files.forEach((file) => {
-            company.ads.push({ location: file.location });
+            req.user.ads.push({ location: file.location });
         });
 
-        company.markModified('ads');
-        await company.save();
+        req.user.markModified('ads');
+        await req.user.save();
         res.sendStatus(200);
     }
     catch (e) {
@@ -29,9 +46,11 @@ router.post('/submit_user', upload.array('ads'), async function (req, res, next)
     }
 });
 
-router.post('/login_user', function (req, res, next) {
+router.post('/login_user', async function (req, res, next) {
     try {
-        company = Company.findOne({ username: req.body.username });
+        company = await Company.findOne({ username: req.body.username });
+        if (company == null)
+            return res.sendStatus(404);
         if (company.password != req.body.password) {
             res.sendStatus(404);
         } else {

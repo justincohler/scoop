@@ -13,6 +13,7 @@ const { mongoose } = require('./db/mongoose');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 // app.use(formidable());
 app.use(cors());
 // require('./auth/setup_auth')(app);

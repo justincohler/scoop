@@ -23,17 +23,17 @@ let put_user = async (req) =>
 let upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: 'uchicagoscoop',
+    bucket: 'uchicagoscoop2',
     metadata: async function (req, file, cb) {
      if (!req.user)
       await put_user(req);
-     cb(null, { fieldName: `${req.user.username}/${file.originalname}` });
+     cb(null, { fieldName: `${req.user.username}_${file.originalname}` });
     },
     key: async function (req, file, cb) {
     if (!req.user)
       await put_user(req);
 
-    cb(null, `${req.user.username}/${file.originalname}`);
+    cb(null, `${req.user.username}_${file.originalname}`);
     }
   })
 });
@@ -43,7 +43,7 @@ router.post('/upload', secured(), upload.array('ads'), async function (req, res,
   req.user.company.markModified('uploaded_ads');
   try {
     await req.user.company.save();
-    // res.send(`Successfully uploaded file at ${req.file.location}!`);
+    res.send(`Successfully uploaded file at ${req.file.location}!`);
   } catch (e) {
     res.sendStatus(400);
   }
